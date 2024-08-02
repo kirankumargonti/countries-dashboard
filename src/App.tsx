@@ -1,26 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {FC} from 'react'
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
 
-function App() {
+import './styles/app.scss'
+import CountryTable from './Components/CountryTable'
+
+const queryClient = new QueryClient()
+
+const App: FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <QueryClientProvider client={queryClient}>
+      <main className='app'>
+        <div className='container'>
+          <h1>Countries Info</h1>
+          <CountryTable />
+        </div>
+      </main>
+    </QueryClientProvider>
+  )
 }
 
-export default App;
+export default App

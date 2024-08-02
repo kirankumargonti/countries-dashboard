@@ -1,0 +1,31 @@
+button {
+  display: inline-block;
+  font-size: 16px;
+  line-height: 1.5;
+  border: 0;
+  padding: 7px 10px;
+  border-radius: 3px;
+  color: #030303;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.primary-btn {
+  background-color: #5862f5;
+  color: #fff;
+  &:hover {
+    background-color: darken(#5862f5, 5%);
+  }
+}
+
+.secondary-btn {
+  background-color: transparent;
+  border: 0;
+  color: #5862f5;
+  text-decoration: underline;
+}
+
+.disabled-btn {
+  background-color: #474769;
+  cursor: not-allowed;
+}
