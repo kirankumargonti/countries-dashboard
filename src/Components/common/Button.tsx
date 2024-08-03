@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, {memo} from 'react'
 import '../../styles/button.scss'
 
 interface ButtonProps {
@@ -9,7 +9,12 @@ interface ButtonProps {
 
 const Button: React.FC<ButtonProps> = ({label, onClick, ...props}) => {
   return (
-    <button onClick={onClick} {...props}>
+    <button
+      data-testid='button-element'
+      aria-label={label}
+      onClick={onClick}
+      {...props}
+    >
       {label}
     </button>
   )

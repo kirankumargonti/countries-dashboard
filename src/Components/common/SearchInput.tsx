@@ -15,6 +15,8 @@ export const SearchInput: FC<SearchInputProps> = memo(
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
       className='search-input'
+      data-testid='search-input'
+      aria-label='search-box'
     />
   )
 )

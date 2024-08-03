@@ -58,7 +58,7 @@ export function Table<T extends Country>({
 
   return (
     <>
-      <table className='table'>
+      <table data-testid='common-table' className='table'>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>

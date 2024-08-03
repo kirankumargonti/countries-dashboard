@@ -14,6 +14,8 @@ export const Select: React.FC<SelectProps> = memo(
       className='select-input'
       value={value}
       onChange={(e) => onChange(e.target.value)}
+      data-testid='select-box'
+      aria-label='select-box'
     >
       {options.map((option) => (
         <option

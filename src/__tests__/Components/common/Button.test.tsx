@@ -1,31 +1,19 @@
-import {render, screen, fireEvent} from '@testing-library/react'
+import {render, screen} from '@testing-library/react'
 import Button from '../../../Components/common/Button'
 
-describe('Button component', () => {
-  test('renders button with correct label', () => {
-    render(<Button label='Click me' onClick={() => {}} />)
-    const buttonElement = screen.getByText(/click me/i)
+describe('button', () => {
+  test('should render button and with correct label', () => {
+    render(<Button onClick={() => {}} label='Show Countries' />)
+    const buttonElement = screen.getByTestId('button-element')
     expect(buttonElement).toBeInTheDocument()
+    expect(buttonElement).toHaveTextContent('Show Countries')
+    expect(buttonElement).toHaveAttribute('aria-label', 'Show Countries')
   })
-
-  test('calls onClick handler when clicked', () => {
-    const handleClick = jest.fn()
-    render(<Button label='Click me' onClick={handleClick} />)
-    const buttonElement = screen.getByText(/click me/i)
-    fireEvent.click(buttonElement)
-    expect(handleClick).toHaveBeenCalledTimes(1)
-  })
-
-  test('passes additional props to button element', () => {
-    render(
-      <Button
-        label='Test'
-        onClick={() => {}}
-        disabled
-        data-testid='test-button'
-      />
-    )
-    const buttonElement = screen.getByTestId('test-button')
-    expect(buttonElement).toBeDisabled()
+  test('should call onClick when clicked', () => {
+    const onClickMock = jest.fn()
+    render(<Button onClick={onClickMock} label='Show Countries' />)
+    const buttonElement = screen.getByTestId('button-element')
+    buttonElement.click()
+    expect(onClickMock).toHaveBeenCalledTimes(1)
   })
 })

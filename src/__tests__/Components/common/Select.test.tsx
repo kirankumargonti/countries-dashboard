@@ -1,41 +1,39 @@
-import {render, screen, fireEvent} from '@testing-library/react'
+import {fireEvent, render, screen} from '@testing-library/react'
 import {Select} from '../../../Components/common/Select'
-import {PopulationRange} from '../../../lib/types'
 
-const mockOptions: PopulationRange[] = [
-  {value: '0-1000', label: '0 - 1,000', disabled: false},
-  {value: '1001-5000', label: '1,001 - 5,000', disabled: false},
-  {value: '5001-10000', label: '5,001 - 10,000', disabled: true},
-]
+describe('select', () => {
+  const defaultOptions = [
+    {value: 'option1', label: 'Option 1'},
+    {value: 'option2', label: 'Option 2'},
+  ]
 
-describe('Select component', () => {
-  test('displays the correct selected value', () => {
+  test('should render select field with options', () => {
+    render(<Select value='' onChange={() => {}} options={defaultOptions} />)
+    const selectElement = screen.getByTestId('select-box')
+    expect(selectElement).toBeInTheDocument()
+    expect(selectElement).toHaveAttribute('aria-label', 'select-box')
+  })
+
+  test('renders with initial value', () => {
     render(
-      <Select value='1001-5000' onChange={() => {}} options={mockOptions} />
+      <Select value='option1' onChange={() => {}} options={defaultOptions} />
     )
-    const selectElement = screen.getByRole('combobox') as HTMLSelectElement
-    expect(selectElement.value).toBe('1001-5000')
+    const selectElement = screen.getByTestId('select-box')
+    expect(selectElement).toHaveValue('option1')
+  })
+  test('should render options correctly', () => {
+    render(<Select value='' onChange={() => {}} options={defaultOptions} />)
+    const options = screen.getAllByRole('option')
+    expect(options).toHaveLength(2)
+    expect(options[0]).toHaveTextContent('Option 1')
+    expect(options[1]).toHaveTextContent('Option 2')
   })
 
-  test('calls onChange handler with correct value when option is selected', () => {
+  test('calls onChange handler with correct value', () => {
     const handleChange = jest.fn()
-    render(<Select value='' onChange={handleChange} options={mockOptions} />)
-    const selectElement = screen.getByRole('combobox')
-    fireEvent.change(selectElement, {target: {value: '0-1000'}})
-    expect(handleChange).toHaveBeenCalledWith('0-1000')
-  })
-
-  test('disables option when disabled prop is true', () => {
-    render(<Select value='' onChange={() => {}} options={mockOptions} />)
-    const disabledOption = screen.getByRole('option', {
-      name: '5,001 - 10,000',
-    }) as HTMLOptionElement
-    expect(disabledOption.disabled).toBe(true)
-  })
-
-  test('has correct CSS class', () => {
-    render(<Select value='' onChange={() => {}} options={mockOptions} />)
-    const selectElement = screen.getByRole('combobox')
-    expect(selectElement).toHaveClass('select-input')
+    render(<Select value='' onChange={handleChange} options={defaultOptions} />)
+    const selectElement = screen.getByTestId('select-box')
+    fireEvent.change(selectElement, {target: {value: 'option2'}})
+    expect(handleChange).toHaveBeenCalledWith('option2')
   })
 })

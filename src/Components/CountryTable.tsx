@@ -125,12 +125,13 @@ const CountryTable: React.FC = () => {
             className='secondary-btn'
             label='Clear'
             onClick={handleClearFilters}
+            disabled={isLoading}
           />
         </div>
         <Button
-          className={`primary-btn ${isLoading ? 'disabled-btn' : ''}`}
           label='Show all countries'
           onClick={filteredCountries}
+          className={`primary-btn ${isLoading ? 'disabled-btn' : ''}`}
           disabled={isLoading}
         />
       </div>
